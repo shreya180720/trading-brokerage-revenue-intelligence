@@ -1,37 +1,54 @@
-# Brokerage Intelligence System
+<div align="center">
 
-End-to-end analytics project simulating the data infrastructure and business intelligence output of a mid-size Indian brokerage firm. Built to demonstrate production-quality SQL, Python data engineering, and Power BI dashboard design.
+# 📊 Brokerage Intelligence System
+
+**End-to-end analytics simulation of a mid-size Indian brokerage firm**
+
+*Production-quality SQL · Python data engineering · Power BI dashboard*
+
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Power BI](https://img.shields.io/badge/Power%20BI-Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-Portfolio-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shreya180720/trading-brokerage-revenue-intelligence)
+
+</div>
 
 ---
 
-## Business Problem
+## 🎯 Business Problem
 
 Four operational questions drive this project:
 
-1. Where is brokerage revenue actually coming from — segment, client type, channel?
-2. Which traders drive disproportionate revenue, and how dependent are we on them?
-3. How do we identify and re-engage dormant accounts before they churn permanently?
-4. Are operational failures (app crashes, order failures, KYC delays) suppressing trading activity?
+| # | Question |
+|---|---|
+| 💰 | Where is brokerage revenue actually coming from — segment, client type, channel? |
+| 📈 | Which traders drive disproportionate revenue, and how dependent are we on them? |
+| 😴 | How do we identify and re-engage dormant accounts before they churn permanently? |
+| ⚠️ | Are operational failures (app crashes, order failures, KYC delays) suppressing trading activity? |
 
 ---
 
-## Dataset
+## 📦 Dataset
+
+<div align="center">
 
 | Metric | Value |
-|---|---|
-| Clients | 5,000 |
-| Trading accounts | 7,972 |
-| Trades | 1,690,788 |
-| Revenue rows | 1,690,788 |
-| Operational events | 1,795 |
-| Simulation period | January 2024 – December 2025 |
-| Total brokerage revenue | ₹82,198,666 |
+|:---|---:|
+| 👥 Clients | 5,000 |
+| 🏦 Trading Accounts | 7,972 |
+| 🔄 Trades | 1,690,788 |
+| 💵 Revenue Rows | 1,690,788 |
+| 🚨 Operational Events | 1,795 |
+| 📅 Simulation Period | January 2024 – December 2025 |
+| 💰 Total Brokerage Revenue | **₹82,198,666** |
 
-All data is synthetic, generated using Faker and NumPy to reflect Aditya Birla market behaviour.
+</div>
+
+> All data is synthetic, generated using Faker and NumPy to reflect Aditya Birla market behaviour.
 
 ---
 
-## Schema
+## 🗂️ Schema
 
 ```
 clients (5,000 rows)
@@ -66,43 +83,58 @@ brokerage_revenue (1,690,788 rows)
   └── total_revenue (computed)
 ```
 
-**Design notes:**
+**⚙️ Design notes:**
 - `trade_value` and `total_revenue` use PostgreSQL `GENERATED ALWAYS AS STORED` — computed at write time, physically stored for fast aggregation
 - `brokerage_revenue` enforces a `UNIQUE` constraint on `trade_id` — strict 1:1 mapping prevents double-counting
 - `vw_trade_full` is a denormalised view joining all five tables — used as the primary Power BI data source
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
+
+<div align="center">
 
 | Layer | Tool |
-|---|---|
-| Database | PostgreSQL 17 |
-| Data generation | Python 3.13 · Faker · Pandas · NumPy · SQLAlchemy |
-| Visualisation | Power BI Desktop |
-| Version control | GitHub |
+|:---|:---|
+| 🗄️ Database | PostgreSQL 17 |
+| 🐍 Data Generation | Python 3.13 · Faker · Pandas · NumPy · SQLAlchemy |
+| 📊 Visualisation | Power BI Desktop |
+| 🔧 Version Control | GitHub |
+
+</div>
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-brokerage-intelligence-system/
-├── schema.sql           PostgreSQL DDL — tables, indexes, computed columns, view
-├── generate_data.py     Synthetic data generator — 5,000 clients, 1.7M trades
-├── analysis.sql         20 analytical queries across 4 business sections
-├── insights.md          10 business insights backed by actual query results
-├── dashboard_design.md  Power BI dashboard specification — 4 pages, 20 visuals
-├── dashboard.pbix       Power BI report file
-├── requirements.txt     Python dependencies
+trading-brokerage-revenue-intelligence/
+│
+├── 📂 data/
+│   └── generate_data.py        Synthetic data generator — 5,000 clients, 1.7M trades
+│
+├── 📂 sql/
+│   ├── schema.sql               PostgreSQL DDL — tables, indexes, computed columns, view
+│   └── analysis.sql             20 analytical queries across 4 business sections
+│
+├── 📂 dashboard/
+│   └── dashboard.pbix           Power BI report — 4 pages, 20+ visuals
+│
+├── 📂 docs/
+│   ├── insights.md              10 business insights backed by actual query results
+│   └── dashboard_design.md      Full Power BI specification — DAX measures, layouts, slicers
+│
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## Analysis Sections
+## 🔍 Analysis Sections
 
-### A — Revenue Analysis
+<details>
+<summary><b>💰 A — Revenue Analysis</b></summary>
+
 | Query | Business Question |
 |---|---|
 | Monthly trend + MoM % | Is revenue growing or declining? |
@@ -112,7 +144,11 @@ brokerage-intelligence-system/
 | Pareto — decile analysis | Does 80/20 hold? Where exactly? |
 | Channel breakdown | Where should product investment go? |
 
-### B — Trading Behaviour
+</details>
+
+<details>
+<summary><b>📈 B — Trading Behaviour</b></summary>
+
 | Query | Business Question |
 |---|---|
 | Dormancy buckets (30/60/90d) | How many accounts are drifting toward churn? |
@@ -120,7 +156,11 @@ brokerage-intelligence-system/
 | Channel × segment breakdown | Which channel serves which segment? |
 | Trade frequency trend | Is trading growing in each segment? |
 
-### C — Client Lifecycle
+</details>
+
+<details>
+<summary><b>🔄 C — Client Lifecycle</b></summary>
+
 | Query | Business Question |
 |---|---|
 | Days to first trade | How fast do clients activate post-onboarding? |
@@ -128,7 +168,11 @@ brokerage-intelligence-system/
 | Cohort retention — 1/3/6 months | Where does the retention cliff occur? |
 | KYC status impact | Does pending KYC suppress trading? |
 
-### D — Operational Impact
+</details>
+
+<details>
+<summary><b>⚠️ D — Operational Impact</b></summary>
+
 | Query | Business Question |
 |---|---|
 | Event vs no-event trade frequency | Do platform failures reduce trading? |
@@ -137,26 +181,28 @@ brokerage-intelligence-system/
 | Pre/post event trade delta | What is the per-event-type suppression effect? |
 | Event → dormancy rate | Which failure type most reliably causes churn? |
 
+</details>
+
 ---
 
-## Key Findings
+## 💡 Key Findings
 
 | # | Finding |
-|---|---|
-| 1 | Equity is 67.6% of trades but **86.56% of revenue (₹71.15M)** — F&O fee rates are ~10× lower |
-| 2 | HNI clients (10.5% of base) average **₹47,035 revenue/client** vs ₹14,190 for Retail — a 3.3× gap |
-| 3 | Top 10% of clients contribute **31.98% of revenue**; top 40% account for 79.47% |
-| 4 | Mobile drives **59.92% of revenue** (1,014,306 trades); Dealer handles the highest-value F&O orders |
-| 5 | Monthly revenue peaked at **₹4.6M (Jan 2024)** and stabilised at ₹3.5–3.7M through mid-2025 |
-| 6 | Avg trades per active user fell from **37.58 (Jan 2024) to 9.61 (Dec 2025)** — engagement declining despite client growth |
-| 7 | Top trader: Zilmil Raja (HNI, Kanpur) — **₹89,428 revenue, 1,860 trades**, 0.109% of total |
-| 8 | Operational events correlate with reduced post-event trading — Order Failure has the highest dormancy rate |
-| 9 | HNI resolution time: **~4 hours median** vs **~18 hours for Retail** — 4.5× difference, not formalised as SLA |
-| 10 | KYC-Pending clients generate significantly less revenue than Verified clients in the same onboarding cohort |
+|:---:|---|
+| 1️⃣ | Equity is 67.6% of trades but **86.56% of revenue (₹71.15M)** — F&O fee rates are ~10× lower |
+| 2️⃣ | HNI clients (10.5% of base) average **₹47,035 revenue/client** vs ₹14,190 for Retail — a **3.3× gap** |
+| 3️⃣ | Top 10% of clients contribute **31.98% of revenue**; top 40% account for **79.47%** |
+| 4️⃣ | Mobile drives **59.92% of revenue** (1,014,306 trades); Dealer handles the highest-value F&O orders |
+| 5️⃣ | Monthly revenue peaked at **₹4.6M (Jan 2024)** and stabilised at ₹3.5–3.7M through mid-2025 |
+| 6️⃣ | Avg trades per active user fell from **37.58 → 9.61** — engagement declining despite client growth |
+| 7️⃣ | Top trader: Zilmil Raja (HNI, Kanpur) — **₹89,428 revenue, 1,860 trades** |
+| 8️⃣ | Operational events correlate with reduced post-event trading — Order Failure has the highest dormancy rate |
+| 9️⃣ | HNI resolution: **~4 hours median** vs **~18 hours Retail** — 4.5× difference, not formalised as SLA |
+| 🔟 | KYC-Pending clients generate significantly less revenue than Verified clients in the same onboarding cohort |
 
 ---
 
-## How to Run
+## 🚀 How to Run
 
 ### Prerequisites
 - PostgreSQL 17 running on port 5433
@@ -165,34 +211,57 @@ brokerage-intelligence-system/
 ### Setup
 
 ```bash
-# Install dependencies
+# 1. Install dependencies
 pip install -r requirements.txt
 
-# Create database
+# 2. Create database
 createdb -U postgres -p 5433 brokerage_db
 
-# Load schema
-psql -U postgres -p 5433 -d brokerage_db -f schema.sql
+# 3. Load schema
+psql -U postgres -p 5433 -d brokerage_db -f sql/schema.sql
 
-# Generate and load data (~90 seconds)
-DATABASE_URL="postgresql://postgres:password@localhost:5433/brokerage_db" python generate_data.py
+# 4. Generate and load data (~90 seconds)
+DATABASE_URL="postgresql://postgres:postgres123@localhost:5433/brokerage_db" python data/generate_data.py
 
-# Run analysis queries
-psql -U postgres -p 5433 -d brokerage_db -f analysis.sql
+# 5. Run analysis queries
+psql -U postgres -p 5433 -d brokerage_db -f sql/analysis.sql
 ```
 
-### Power BI
-1. Open `dashboard.pbix` in Power BI Desktop
-2. Update data source credentials if needed: **Home → Transform data → Data source settings**
+### 📊 Power BI
+1. Open `dashboard/dashboard.pbix` in Power BI Desktop
+2. Update credentials if needed: **Home → Transform data → Data source settings**
 3. Click **Refresh**
 
 ---
 
-## Dashboard Pages
+## 📋 Dashboard Pages
 
-| Page | Focus |
-|---|---|
-| Revenue Intelligence | Monthly trend, segment split, top traders, Pareto, channel breakdown |
-| Trading Activity | Dormancy funnel, engagement trend, channel × segment heatmap |
-| Client Lifecycle | Cohort retention heatmap, days to first trade, never-traded analysis |
-| Operational Intelligence | Event impact, resolution time comparison, churn risk scatter |
+### 💰 Revenue Intelligence
+![Revenue Intelligence](screenshots/dashboard-revenue-overview.png)
+Monthly trend, segment split, top traders, Pareto analysis, channel breakdown
+
+---
+
+### 📈 Trading Activity
+![Trading Activity](screenshots/dashboard-trading-behavior.png)
+Dormancy funnel, engagement trend, channel × segment heatmap
+
+---
+
+### 🔄 Client Lifecycle
+![Client Lifecycle](screenshots/dashboard-client-lifecycle.png)
+Cohort retention heatmap, days to first trade, never-traded analysis
+
+---
+
+### ⚠️ Operational Intelligence
+![Operational Intelligence](screenshots/dashboard-operational-intelligence.png)
+Event impact on trading, resolution time comparison, churn risk scatter
+
+---
+
+<div align="center">
+
+*Built to demonstrate production-quality analytics across SQL, Python, and Power BI*
+
+</div>
